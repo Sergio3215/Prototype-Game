@@ -39,6 +39,29 @@ io.on("connection", (socket) => {
 
     socket.emit('status', [player, enemy]);
     socket.emit('turn', turn);
+    socket.emit('win', `Ha ganado ${name}`);
+
+    socket.on('reset',()=>{
+        player = {
+            name: "player",
+            hp: 100,
+            maxHP: 100,
+            attack: 60,
+            turn: 0
+        }
+        enemy = {
+            name: "enemy",
+            hp: 100,
+            maxHP: 100,
+            attack: 40,
+            turn: 1
+        };
+        turn = 0;
+        win='';
+        socket.emit('status', [player, enemy]);
+        socket.emit('turn', turn);
+        socket.broadcast.emit('win', win);
+    })
 
     socket.on("attack", (turn) => {
 
