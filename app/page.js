@@ -71,32 +71,55 @@ export default function App() {
                             </div>
                         </div>
 
+                        {
+                            (!win.includes("ganado")) ?
+                                <>
+                                    <div style={{
+                                        display: "flex",
+                                        justifyContent: "space-around",
+                                        fontSize: "20px"
+                                    }}>
+                                        <div>
+                                            <div>{enemy.name}</div>
+                                            <div>
+                                                <button onClick={() => socket.emit('attack', turn)} disabled={enemy.turn != turn}>Atacar a {player.name}</button>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div>{player.name}</div>
+                                            <div>
+                                                <button onClick={() => socket.emit('attack', turn)} disabled={player.turn != turn}>Atacar a {enemy.name}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </>
+                                :
+                                <></>
+                        }
+
                         <div style={{
                             display: "flex",
-                            justifyContent: "space-around",
-                            fontSize: "20px"
-                        }}>
-                            <div>
-                                <div>{enemy.name}</div>
-                                <div>
-                                    <button onClick={() => socket.emit('attack', turn)} disabled={enemy.turn != turn}>Atacar a {player.name}</button>
-                                </div>
-                            </div>
-                            <div>
-                                <div>{player.name}</div>
-                                <div>
-                                    <button onClick={() => socket.emit('attack', turn)} disabled={player.turn != turn}>Atacar a {enemy.name}</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div style={{
-                            display:"flex",
                             alignContent: "center",
                             justifyContent: "center",
                             alignItems: "center",
                             justifyItems: "center",
                         }}>
                             <h1>{win}</h1>
+                        </div>
+
+                        <div style={{
+                            display: "flex",
+                            alignContent: "center",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            justifyItems: "center",
+                        }}>
+                            {
+                                (win.includes("ganado")) ?
+                                    <button onClick={() => socket.emit("reset")}>Reset</button>
+                                    :
+                                    <></>
+                            }
                         </div>
                     </>
             }

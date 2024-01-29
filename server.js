@@ -34,12 +34,15 @@ let enemy = {
 
 let turn = 0;
 
+let win = '';
+
 io.on("connection", (socket) => {
     console.log(`user with id-${socket.id}`);
 
     socket.emit('status', [player, enemy]);
     socket.emit('turn', turn);
-    socket.emit('win', `Ha ganado ${name}`);
+    
+    socket.emit('win', win);
 
     socket.on('reset',()=>{
         player = {
@@ -58,9 +61,10 @@ io.on("connection", (socket) => {
         };
         turn = 0;
         win='';
+        
         socket.emit('status', [player, enemy]);
         socket.emit('turn', turn);
-        socket.broadcast.emit('win', win);
+        socket.broadcast.emit('win', '');
     })
 
     socket.on("attack", (turn) => {
@@ -91,7 +95,9 @@ io.on("connection", (socket) => {
             if(enemy.hp ==  0){
                 name = player.name;
             }
-            socket.broadcast.emit('win', `Ha ganado ${name}`);
+
+            win = `Ha ganado ${name}`;
+            socket.broadcast.emit('win', win);
         }
 
         socket.broadcast.emit('status', [player, enemy]);
