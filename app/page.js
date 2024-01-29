@@ -1,8 +1,11 @@
 "use client"
 import { useState, useEffect } from 'react'
 import io from 'socket.io-client';
+// require('dotenv').config();
 
-let socket = io("https://prototypeserver-fa61e12984ef.herokuapp.com/");
+// console.log(process.env.REACT_APP_URL)
+
+let socket = io(process.env.REACT_APP_URL);
 
 export default function App() {
 
@@ -27,7 +30,7 @@ export default function App() {
 
     useEffect(() => {
 
-        socket = io("https://prototypeserver-fa61e12984ef.herokuapp.com/");
+        socket = io(process.env.REACT_APP_URL);
 
         socket.on('status', (status) => {
             setPlayer(status[0]);
