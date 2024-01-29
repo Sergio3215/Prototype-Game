@@ -30,7 +30,7 @@ let enemy = {
     maxHP: 100,
     attack: 40,
     turn: 1
-}
+};
 
 let turn = 0;
 
