@@ -1,6 +1,6 @@
 module.exports = {
     env: {
-        url: process.env.url,
+        url_origin : process.env.url_origin ,
         REACT_APP_URL: process.env.REACT_APP_URL,
     },
   };
