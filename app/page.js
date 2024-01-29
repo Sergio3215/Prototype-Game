@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import io from 'socket.io-client';
 
-let socket = io("localhost:3001");
+let socket = io("https://prototypeserver-fa61e12984ef.herokuapp.com/");
 
 export default function App() {
 
@@ -27,7 +27,7 @@ export default function App() {
 
     useEffect(() => {
 
-        socket = io("localhost:3001");
+        socket = io("https://prototypeserver-fa61e12984ef.herokuapp.com/");
 
         socket.on('status', (status) => {
             setPlayer(status[0]);

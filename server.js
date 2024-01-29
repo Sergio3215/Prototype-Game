@@ -66,7 +66,7 @@ io.on("connection", (socket) => {
         if(enemy.hp == 0 || player.hp == 0){
             let name = player.name;
             if(enemy.hp ==  0){
-                name = enemy.name;
+                name = player.name;
             }
             socket.broadcast.emit('win', `Ha ganado ${name}`);
         }
