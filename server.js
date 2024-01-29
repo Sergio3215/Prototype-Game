@@ -8,7 +8,7 @@ let io;
 
 io = new Server(httpServer, {
     cors: {
-        origin: "http://localhost:3000", // Replace with your frontend URL
+        origin: process.env.url_origin, // Replace with your frontend URL
         methods: ["GET", "POST"],
         allowedHeaders: ["my-custom-header"],
         credentials: true,
