@@ -1,6 +1,7 @@
 const http = require("http");
 const { Server } = require("socket.io");
 const cors = require("cors");
+require('dotenv').config();
 
 const httpServer = http.createServer();
 
@@ -8,7 +9,7 @@ let io;
 
 io = new Server(httpServer, {
     cors: {
-        origin: process.env.url_origin, // Replace with your frontend URL
+        origin: process.env.url_origin , // Replace with your frontend URL
         methods: ["GET", "POST"],
         allowedHeaders: ["my-custom-header"],
         credentials: true,
@@ -39,7 +40,7 @@ let win = '';
 io.on("connection", (socket) => {
     console.log(`user with id-${socket.id}`);
 
-    socket.emit('status', [player, enemy]);
+    socket.emit('status', [player, enemy, socket.id]);
     socket.emit('turn', turn);
     
     socket.emit('win', win);
@@ -61,9 +62,9 @@ io.on("connection", (socket) => {
         };
         turn = 0;
         win='';
-        
-        socket.emit('status', [player, enemy]);
-        socket.emit('turn', turn);
+        // console.log(socket.id)
+        socket.broadcast.emit('status', [player, enemy, socket.id]);
+        socket.broadcast.emit('turn', turn);
         socket.broadcast.emit('win', '');
     })
 
@@ -100,7 +101,7 @@ io.on("connection", (socket) => {
             socket.broadcast.emit('win', win);
         }
 
-        socket.broadcast.emit('status', [player, enemy]);
+        socket.broadcast.emit('status', [player, enemy,  socket.id]);
         socket.broadcast.emit('turn', turn);
     });
 
