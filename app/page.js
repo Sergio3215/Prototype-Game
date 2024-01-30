@@ -15,7 +15,9 @@ export default function App() {
 
     const [turn, setTurn] = useState(0);
 
-    const [win, setWin] = useState('')
+    const [win, setWin] = useState('');
+
+    const [id, setId] = useState('');
 
     socket.on('status', (status) => {
         setPlayer(status[0]);
@@ -35,6 +37,7 @@ export default function App() {
         socket.on('status', (status) => {
             setPlayer(status[0]);
             setEnemy(status[1]);
+            setId(status[2])
         });
 
         socket.on('turn', (turn) => {
@@ -58,7 +61,7 @@ export default function App() {
                     <></>
                     :
                     <>
-
+                        <div>{id}</div>
                         <div style={{
                             display: "flex",
                             justifyContent: "space-around",
